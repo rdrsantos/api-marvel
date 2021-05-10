@@ -2,7 +2,6 @@
 <div>
   <header-principal/>
   <div class="container">
-    <heroi-buscar/>
     <router-view/>
   </div>
 </div>
@@ -10,13 +9,11 @@
 
 <script>
 import HeaderPrincipal from "@/components/HeaderPrincipal.vue";
-import HeroiBuscar from "@/components/HeroiBuscar.vue";
 
 export default {
   name: "App",
   components: {
-    HeaderPrincipal,
-    HeroiBuscar
+    HeaderPrincipal
   }
 }
 </script>
@@ -40,6 +37,10 @@ a{
   color: #000;
 }
 
+img{
+  max-width: 100%;
+  display: block;
+}
 
 
 .container{

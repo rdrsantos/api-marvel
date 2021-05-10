@@ -6,6 +6,7 @@
 
 <script>
 import HeroisCards from "@/components/HeroisCards.vue";
+
 export default {
   name: "home",
   components:{

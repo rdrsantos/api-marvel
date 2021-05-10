@@ -1,37 +1,61 @@
 <template>
-  <div class="heroi-container">
-    <div v-for="heroi in herois" :key="heroi.id" class="heroi-card">
-      <h2 class="heroi-titulo">{{heroi.name}}</h2>
-      <p class="heroi-descricao">{{heroi.description}}</p>
-      <div class="heroi-btn">
-        <router-link to="/">Ver mais</router-link>
-      </div>
+  <form class="heroi-buscar">
+    <input type="text" placeholder="Buscar heroi. (ex: iron man, hulk, vision)" v-model="heroi" >
+    <button @click.prevent="buscarHeroi">Buscar</button>
+  </form>
+        <!-- <herois-paginacao :heroisTotal="heroisTotal" :heroisPorPagina="heroisPorPagina"/> -->
+  <div class="heroi-container" v-if="herois">
+      <div 
+        v-for="heroi in herois" 
+        :key="heroi.id" 
+        class="heroi-card"
+      >
+        <div class="heroi-img" >
+          <img  :src="heroi.thumbnail.path + '.' + heroi.thumbnail.extension">
+        </div>
+        <router-link :to="{name: 'heroi', params: {name: heroi.name}}">
+          <h2 class="heroi-info">{{heroi.name}}</h2>
+        </router-link>
+        <!-- <p class="heroi-descricao">{{heroi.description}}</p> -->
     </div>
+    <herois-paginacao :heroisTotal="heroisTotal" :heroisPorPagina="heroisPorPagina"/>
   </div>
+  <loader v-else/>
 </template>
 
 <script>
-import md5 from "md5"
-import {api} from "../api.js"
+import {api, apiUrl} from "../api.js";
+import HeroisPaginacao from "@/components/HeroisPaginacao.vue"
+
 export default {
   name: 'HeroisCards',
   data() {
     return {
-      herois: []
+      herois: 0, // defini como 0 para retornar false
+      heroi: "",
+      heroisPorPagina: 12,
+      heroisTotal: 0
     }
+  },
+  components:{
+    HeroisPaginacao
   },
   methods: {
     fetchApi(){
-      const ts = Number(new Date())
-      const apikey = "0e2120123bf95e58fd169151bf7f7445"
-      const pk = "b1079906fb9f3f28cda605af587fa644c67078ec"
-      const hash = md5(ts+pk+apikey)// gera chave para acessar a api 
-
-    api.get(`/characters?ts=${ts}&apikey=${apikey}&hash=${hash}&limit=12`)
-      .then(r => {
-        console.log(r)
-        this.herois = r.data.data.results
+      api.get(`${apiUrl}`)
+        .then(r => {
+          this.herois = r.data.data.results
+          this.heroisTotal = Number(r.data.data.total)
+      })
+    },
+    buscarHeroi(){
+      if(this.heroi) {
+        this.herois = 0
+        api.get(`${apiUrl}&name=${this.heroi}`)
+          .then(r => {
+            this.herois = r.data.data.results
         })
+      }
     }
   },
   created() {
@@ -46,34 +70,47 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
 }
+
+
+.heroi-buscar{
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  position: relative;
+  input{
+    width: 100%;
+    padding: 10px 5px;
+    border: 2px solid #ED1D24;
+    outline: none;
+  }
+  button{
+    padding: 10px 20px;
+    background: #ED1D24;
+    border: none;
+    font-size: 1rem;
+    color: #fff;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+
 .heroi-card{
-  padding: 10px;
   background-color: #ddd;
   border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-  .heroi-titulo{
-    margin-bottom: 10px;
-  }
-  .heroi-btn {
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .heroi-info{
     text-align: center;
-    padding: 10px 20px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    transform: translate3d(-100%, 0,0);
-    transition: all .3s forwards;
     background: #ED1D24;
     color: #fff;
-    a{
-      color: #fff;
-      font-weight: bold;
-    }
   }
-  &:hover .heroi-btn {
-        transform: translate3d(0, 0,0);
 
-  }
 }
 </style>
