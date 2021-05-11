@@ -42,11 +42,13 @@ img{
   display: block;
 }
 
-
 .container{
   max-width: 1000px;
   margin: 0 auto;
   padding-bottom: 20px;
+  @media screen and (max-width: 700px) {
+    max-width: 300px;
+  }
 }
 
 </style>

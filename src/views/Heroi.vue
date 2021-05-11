@@ -2,14 +2,12 @@
 <section>
 
   <div v-if="heroi" class="heroi">
-    <div class="heroi-header">
-      <div class="heroi-img" :style="{backgroundImage: bgImage}">
-      </div>
+    <div class="heroi-img" :style="{backgroundImage: bgImage}">
+    </div>
       <div class="heroi-sobre">
         <h2 class="heroi-nome">{{heroi.name}}</h2>
         <p v-if="heroi.description" class="heroi-descricao">{{heroi.description}}</p>
         <p v-else class="heroi-descricao">Descricão não encontrada</p>
-      </div>
     </div>
   </div>
   <loader v-else />
@@ -17,7 +15,7 @@
 </template>
 
 <script>
-import {api, apiUrl} from "@/api.js"
+import {apiUrl} from "@/api.js"
 export default {
   props: ["name"],
   data(){
@@ -29,10 +27,11 @@ export default {
   },
   methods: {
     fetchHeroi() {
-      api.get(`${apiUrl}&name=${this.name}`)
+      fetch(`${apiUrl}&name=${this.name}`)
+      .then(response => response.json())
       .then(r => {
-        this.heroi = r.data.data.results[0]
-        this.bgImage = `url('${r.data.data.results[0].thumbnail.path}.${r.data.data.results[0].thumbnail.extension}')`
+        this.heroi = r.data.results[0]
+        this.bgImage = `url('${r.data.results[0].thumbnail.path}.${r.data.results[0].thumbnail.extension}')`
       })
     }
   },
@@ -43,15 +42,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.heroi-header{
+.heroi{
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 20px;
+  @media screen and(max-width: 700px) {
+    display: block;
+  }
 }
 .heroi-img{
   height: 400px;
   background-position: center;
   background-size: cover;
+  border: 5px solid #ED1D24;
+  border-radius: 4px;
 }
 
 .heroi-nome{

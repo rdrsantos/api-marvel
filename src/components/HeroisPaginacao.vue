@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import {api, apiUrl} from "../api.js";
+import {apiUrl} from "../api.js";
+import {mapActions} from "vuex"
 export default {
   props: {
     heroisPorPagina: {
@@ -28,7 +29,7 @@ export default {
       const total = this.paginasTotal.length
       const pagesArray = []
 
-      for(let i = 1; i <= total; i++){
+      for(let i = 0; i <= total; i+=12){
         pagesArray.push(i)
       }
 
@@ -46,17 +47,24 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['atualizarLocalStorage']),
     fetchPagina(pagina) {
-      api.get(`${apiUrl}&offset=${pagina}`)
-      .then()
-    },
+      this.$store.state.herois = false
+      fetch(`${apiUrl}&offset=${pagina}`)
+      .then(response => response.json())
+      .then(r => {
+        this.$store.commit("GET_HEROIS", r.data.results)
+        this.atualizarLocalStorage()
+      })
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .paginacao{
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
+
 }
 
 li{

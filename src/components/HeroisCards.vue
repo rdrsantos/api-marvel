@@ -1,65 +1,51 @@
 <template>
   <form class="heroi-buscar">
     <input type="text" placeholder="Buscar heroi. (ex: iron man, hulk, vision)" v-model="heroi" >
-    <button @click.prevent="buscarHeroi">Buscar</button>
+    <button @click.prevent="buscarHeroi(heroi)">Buscar</button>
   </form>
-        <!-- <herois-paginacao :heroisTotal="heroisTotal" :heroisPorPagina="heroisPorPagina"/> -->
-  <div class="heroi-container" v-if="herois">
+    <div class="heroi-container" v-if="herois">
       <div 
-        v-for="heroi in herois" 
+        v-for="heroi in herois"
         :key="heroi.id" 
         class="heroi-card"
       >
+      <router-link :to="{name: 'heroi', params: {name: heroi.name}}">
         <div class="heroi-img" >
           <img  :src="heroi.thumbnail.path + '.' + heroi.thumbnail.extension">
         </div>
-        <router-link :to="{name: 'heroi', params: {name: heroi.name}}">
-          <h2 class="heroi-info">{{heroi.name}}</h2>
+        
+          <h2 class="heroi-name">{{heroi.name}}</h2>
         </router-link>
-        <!-- <p class="heroi-descricao">{{heroi.description}}</p> -->
-    </div>
+      </div>
     <herois-paginacao :heroisTotal="heroisTotal" :heroisPorPagina="heroisPorPagina"/>
-  </div>
+    </div>
   <loader v-else/>
 </template>
 
 <script>
-import {api, apiUrl} from "../api.js";
 import HeroisPaginacao from "@/components/HeroisPaginacao.vue"
+import {mapState, mapActions} from 'vuex'
 
 export default {
   name: 'HeroisCards',
   data() {
     return {
-      herois: 0, // defini como 0 para retornar false
       heroi: "",
       heroisPorPagina: 12,
-      heroisTotal: 0
     }
   },
   components:{
     HeroisPaginacao
   },
   methods: {
-    fetchApi(){
-      api.get(`${apiUrl}`)
-        .then(r => {
-          this.herois = r.data.data.results
-          this.heroisTotal = Number(r.data.data.total)
-      })
-    },
-    buscarHeroi(){
-      if(this.heroi) {
-        this.herois = 0
-        api.get(`${apiUrl}&name=${this.heroi}`)
-          .then(r => {
-            this.herois = r.data.data.results
-        })
-      }
-    }
+    ...mapActions(['getHerois', 'salvarLocalStorage', "buscarHeroi"]),
+  },
+  computed: {
+    ...mapState(['herois', 'heroiBuscado', 'heroisTotal']),
+
   },
   created() {
-    this.fetchApi()
+    this.getHerois()
   }
 }
 </script>
@@ -69,6 +55,9 @@ export default {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
+  @media screen and (max-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 
@@ -101,15 +90,33 @@ export default {
 }
 
 .heroi-card{
-  background-color: #ddd;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  .heroi-info{
+  .heroi-img{
+    width: 100%;
+    height: 300px;
+    img{
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      height: 100%;
+      object-fit: cover;
+    }
+    @media screen and(max-width:700px) {
+      height: 200px;
+    }
+  }
+  .heroi-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
     text-align: center;
     background: #ED1D24;
     color: #fff;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
 
 }

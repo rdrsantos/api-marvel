@@ -17,7 +17,7 @@ export default {
   background: #ED1D24;
   margin-bottom: 50px;
   text-align: center;
-  .router-link-active, .router-link-exact-active{
+  a{
     color: #fff;
     font-size: 2rem;
     font-weight: bold;
