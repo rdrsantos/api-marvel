@@ -1,12 +1,23 @@
 <template>
   <header class="header">
-      <router-link to="/" class="header-logo">MARVEL HEROIS</router-link>
+      <router-link @click="getQuery" :to="{name: 'Home',query: {page: query}}" class="header-logo">MARVEL HEROIS</router-link>
   </header>
 </template>
 
 <script>
 export default {
-  name: "HeaderPrincipal"
+  name: "HeaderPrincipal",
+  data() {
+    return {
+      query: 1
+    }
+  },
+  methods: {
+    getQuery(){
+      let query = (localStorage.getItem("query")) ? JSON.parse(localStorage.getItem("query")) : 1
+      this.query = query.page
+    }
+  }
 }
 </script>
 

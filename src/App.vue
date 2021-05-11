@@ -47,7 +47,8 @@ img{
   margin: 0 auto;
   padding-bottom: 20px;
   @media screen and (max-width: 700px) {
-    max-width: 300px;
+    max-width: 100%;
+    margin: 0 10px;
   }
 }
 

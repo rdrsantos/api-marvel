@@ -17,7 +17,7 @@
           <h2 class="heroi-name">{{heroi.name}}</h2>
         </router-link>
       </div>
-    <herois-paginacao :heroisTotal="heroisTotal" :heroisPorPagina="heroisPorPagina"/>
+    <herois-paginacao/>
     </div>
   <loader v-else/>
 </template>
@@ -31,7 +31,6 @@ export default {
   data() {
     return {
       heroi: "",
-      heroisPorPagina: 12,
     }
   },
   components:{
@@ -102,6 +101,9 @@ export default {
       border-top-right-radius: 5px;
       height: 100%;
       object-fit: cover;
+    @media screen and(max-width:700px) {
+      height: 200px;
+    }
     }
     @media screen and(max-width:700px) {
       height: 200px;
