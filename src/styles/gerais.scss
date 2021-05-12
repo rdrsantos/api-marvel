@@ -1,0 +1,43 @@
+// fontes e cores
+$fonte-principal: Arial, "Helvetica Neue", Helvetica, sans-serif;
+$cor-fonte: #fff;
+$cor-principal: #ED1D24;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: $fonte-principal;
+}
+
+a{
+  text-decoration: none;
+  color: #000;
+}
+
+img{
+  max-width: 100%;
+  display: block;
+}
+
+
+// resposivo
+@mixin responsivo($tamanho) {
+  @if $tamanho == t {
+    @media only screen and (min-width: 768px) and (max-width: 990px){
+      @content;
+    }
+  } @else if $tamanho == m {
+    @media only screen and (max-width: 767px){
+      @content;
+    }
+  }
+}
+
+// funcao para converter px para rem
+@function rem($size) {
+  @return $size / 16px * 1rem;
+}
