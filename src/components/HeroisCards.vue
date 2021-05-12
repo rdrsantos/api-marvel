@@ -1,8 +1,5 @@
 <template>
-  <form class="heroi-buscar">
-    <input type="text" placeholder="Buscar heroi. (ex: iron man, hulk, vision)" v-model="heroi" >
-    <button @click.prevent="buscarHeroi(heroi)">Buscar</button>
-  </form>
+
     <div class="heroi-container" v-if="herois">
       <div 
         v-for="heroi in herois"
@@ -28,11 +25,6 @@ import {mapState, mapActions} from 'vuex'
 
 export default {
   name: 'HeroisCards',
-  data() {
-    return {
-      heroi: "",
-    }
-  },
   components:{
     HeroisPaginacao
   },
@@ -56,35 +48,6 @@ export default {
   grid-gap: 20px;
   @media screen and (max-width: 700px) {
     grid-template-columns: 1fr 1fr;
-  }
-}
-
-
-.heroi-buscar{
-  max-width: 500px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 40px;
-  position: relative;
-  input{
-    width: 100%;
-    padding: 10px 5px;
-    border: 2px solid #ED1D24;
-    outline: none;
-  }
-  button{
-    padding: 10px 20px;
-    background: #ED1D24;
-    border: none;
-    font-size: 1rem;
-    color: #fff;
-    position: absolute;
-    right: 0;
-    top: 0;
-    cursor: pointer;
-    font-weight: bold;
   }
 }
 

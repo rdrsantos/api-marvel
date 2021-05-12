@@ -1,6 +1,5 @@
 <template>
 <section>
-
   <div v-if="heroi" class="heroi">
     <div class="heroi-img" :style="{backgroundImage: bgImage}">
     </div>
@@ -9,6 +8,9 @@
         <p v-if="heroi.description" class="heroi-descricao">{{heroi.description}}</p>
         <p v-else class="heroi-descricao">Descricão não encontrada</p>
     </div>
+    <heroi-quadrinhos :heroiId="heroiId"/>
+    <heroi-eventos :heroiId="heroiId" />
+    <heroi-series :heroiId="heroiId" />
   </div>
   <loader v-else />
 </section>
@@ -16,22 +18,28 @@
 
 <script>
 import {apiUrl} from "@/api.js"
+import HeroiQuadrinhos from '@/components/Heroi/HeroiQuadrinhos.vue'
+import HeroiEventos from '@/components/Heroi/HeroiEventos.vue'
+import HeroiSeries from '@/components/Heroi/HeroiSeries.vue'
 export default {
+  components: {HeroiQuadrinhos,HeroiEventos, HeroiSeries},
   props: ["name"],
   data(){
     return{
       heroi: 0,
-      img: '',
-      bgImage: ""
+      heroiId: 0,
+      bgImage: "",
+      quadrinhos: false
     }
   },
   methods: {
     fetchHeroi() {
       fetch(`${apiUrl}&name=${this.name}`)
       .then(response => response.json())
-      .then(r => {
-        this.heroi = r.data.results[0]
-        this.bgImage = `url('${r.data.results[0].thumbnail.path}.${r.data.results[0].thumbnail.extension}')`
+      .then(response => {
+        this.heroi = response.data.results[0]
+        this.bgImage = `url('${response.data.results[0].thumbnail.path}.${response.data.results[0].thumbnail.extension}')`
+        this.heroiId = response.data.results[0].id
       })
     }
   },
@@ -87,4 +95,6 @@ export default {
     background: #ED1D24;
   }
 }
+
+
 </style>

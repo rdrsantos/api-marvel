@@ -13,34 +13,26 @@ import HeaderPrincipal from "@/components/HeaderPrincipal.vue";
 export default {
   name: "App",
   components: {
-    HeaderPrincipal
+    HeaderPrincipal,
+  },
+  methods: {
+    getDadosLocalStorage() {
+      // Pegar todos os dados que foram salvos no local storage e atualizar no site
+      if(localStorage.getItem("query")){
+        const query = JSON.parse(localStorage.getItem("query"))
+        this.$router.push(`/?page=${query.page}`)
+      }
+    }
+  },
+  created() {
+    this.getDadosLocalStorage()
   }
 }
 </script>
 
 
 <style lang="scss">
-$fonte-principal: Arial, "Helvetica Neue", Helvetica, sans-serif;
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body{
-  font-family: $fonte-principal;
-}
-
-a{
-  text-decoration: none;
-  color: #000;
-}
-
-img{
-  max-width: 100%;
-  display: block;
-}
 
 .container{
   max-width: 1000px;

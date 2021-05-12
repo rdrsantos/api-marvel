@@ -1,9 +1,10 @@
 <template>
-  <div class="paginacao" v-if="paginasTotal">
+  <div class="paginacao" v-if="paginasTotal > 1">
+    <p class="pagina-atual">Pagina {{this.$route.query.page}}</p>
     <ul>
       <router-link class="controles" @click="fetchPagina(0)" :to="{query: {page: 1}}">Primeira</router-link>
       <li v-for="pagina in paginas" :key="pagina">
-        <router-link @click="fetchPagina((pagina-1) * 12)" :to="{query: {page: pagina}}">{{pagina}}</router-link>
+        <router-link @click="fetchPagina((pagina-1) * 12)" :to="{name: 'Home', query: {page: pagina}}">{{pagina}}</router-link>
       </li>
       <router-link class="controles" @click="fetchPagina((paginasTotal-1)*12)" :to="{query: {page: paginasTotal}}">Ultima</router-link>
     </ul>
@@ -56,6 +57,12 @@ export default {
 </script>
 
 <style lang="scss">
+
+.pagina-atual{
+  color: #ED1D24;
+  font-weight: bold;
+}
+
 .paginacao{
   grid-column: 1 / -1;
 

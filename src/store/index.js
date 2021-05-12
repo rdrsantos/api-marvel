@@ -3,8 +3,6 @@ import {apiUrl} from  '@/api.js'
 export default createStore({
   state: {
     herois: false,
-    heroiBuscado: false,
-
     //DADOS PAPA PAGINAÇÃO
     heroisTotal: 0
   },
@@ -12,16 +10,14 @@ export default createStore({
     GET_HEROIS(state, payload){
       state.herois = payload
     },
-    GET_HEROI_BUSCADO(state, payload){
-      state.heroiBuscado = payload
-    },
     GET_HEROIS_TOTAL(state, payload){
       state.heroisTotal = payload
     }
   },
   actions: {
     getHerois(context){
-      if(localStorage.getItem("herois")){
+      const heroiLocal = JSON.parse(localStorage.getItem('herois'))
+      if(heroiLocal.length === 12){
         const heroisArray = JSON.parse(localStorage.getItem('herois'))
         const heroisTotal= JSON.parse(localStorage.getItem('heroisTotal'))
         context.commit("GET_HEROIS", heroisArray)
@@ -43,13 +39,6 @@ export default createStore({
       const totalHerois = JSON.stringify(context.state.heroisTotal)
       localStorage.setItem("herois", heroisJson)
       localStorage.setItem("heroisTotal", totalHerois)
-    },
-    buscarHeroi(context, payload){
-      fetch(`${apiUrl}&name=${payload}`).
-      then(response => response.json())
-      .then(response => {
-        context.commit("GET_HEROI_BUSCADO", response.data.results)
-      })
     },
     atualizarLocalStorage(context) {
       localStorage.removeItem("herois")
