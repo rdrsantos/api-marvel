@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-      <h1 @click="getQuery"  class="header-logo">MARVEL HÉROIS</h1>
+      <button @click="getQuery"  class="header-logo">MARVEL HÉROIS</button>
   </header>
 </template>
 
@@ -25,11 +25,13 @@ export default {
   background: $cor-principal;
   margin-bottom: 50px;
   text-align: center;
-  h1{
+  button{
     color: $cor-fonte;
     font-size: 2rem;
     font-weight: bold;
     cursor: pointer;
+    border: none;
+    background: transparent;
   }
 }
 
