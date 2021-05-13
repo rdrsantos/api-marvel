@@ -2,9 +2,9 @@
 
 Projeto criado com vue.js
 
-Usando a api da marvel https://developer.marvel.com/ para obter os dados nescessários para contruir a aplicação
+Usando a api da marvel https://developer.marvel.com/ para obter os dados nescessários para construir a aplicação.
 
-## Dependências nescessárias
+## Dependências necessárias
 
 ### vue
 ```
