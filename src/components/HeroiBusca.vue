@@ -1,9 +1,9 @@
 <template>
   <div class="erro" v-if="avisoErro">
-    {{avisoErro}}
+    <p>{{avisoErro}} <br>Obs: O nome precisa ser escrito em inglês</p>
   </div>
   <form class="heroi-buscar">
-    <input type="text" placeholder="Buscar heroi. (ex: iron man, hulk, vision)" v-model="heroi" >
+    <input type="text" placeholder="Buscar héroi. (ex: iron man, hulk, vision)" v-model="heroi" >
     <button @click.prevent="buscarHeroi(heroi)">Buscar</button>
   </form>
 </template>
@@ -33,7 +33,7 @@ export default {
             this.avisoErro = false
           } else {
             this.getHerois()
-            this.avisoErro = "Verifique se você digitou corretamente. Obs: O nome precisa ser escrito em inglês"
+            this.avisoErro = "Héroi não encontrado! Verifique se você digitou corretamente."
           }
         })
       }else {
@@ -45,6 +45,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/gerais.scss";
 .heroi-buscar{
   max-width: 500px;
   margin: 0 auto;
@@ -57,19 +58,19 @@ export default {
     width: 100%;
     font-size: 1rem;
     padding: 15px 5px;
-    border: 4px solid #ED1D24;
+    border: 4px solid $cor-principal;
     outline: none;
     border-radius: 4px;
   }
   button{
     height: 100%;
     padding: 0 20px;
-    background: #ED1D24;
+    background: $cor-principal;
     border: none;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     font-size: 1rem;
-    color: #fff;
+    color: $cor-fonte;
     position: absolute;
     right: 0;
     top: 0;
@@ -82,7 +83,7 @@ export default {
 .erro{
   text-align: center;
   margin-bottom: 10px;
-  color: #ED1D24;
+  color: $cor-principal;
   font-weight: bold;
 }
 </style>>

@@ -1,21 +1,19 @@
 <template>
-
-    <div class="heroi-container" v-if="herois">
-      <div 
-        v-for="heroi in herois"
-        :key="heroi.id" 
-        class="heroi-card"
-      >
+  <div class="heroi-container" v-if="herois">
+    <div 
+      v-for="heroi in herois"
+      :key="heroi.id" 
+      class="heroi-card"
+    >
       <router-link :to="{name: 'heroi', params: {name: heroi.name}}">
         <div class="heroi-img" >
-          <img  :src="heroi.thumbnail.path + '.' + heroi.thumbnail.extension">
+          <img  :src="heroi.thumbnail.path.replace('http', 'https') + '.' + heroi.thumbnail.extension">
         </div>
-        
-          <h2 class="heroi-name">{{heroi.name}}</h2>
-        </router-link>
-      </div>
-    <herois-paginacao/>
+        <h2 class="heroi-name">{{heroi.name}}</h2>
+      </router-link>
     </div>
+    <herois-paginacao />
+  </div>
   <loader v-else/>
 </template>
 
@@ -32,8 +30,7 @@ export default {
     ...mapActions(['getHerois', 'salvarLocalStorage', "buscarHeroi"]),
   },
   computed: {
-    ...mapState(['herois', 'heroiBuscado', 'heroisTotal']),
-
+    ...mapState(['herois', 'heroisTotal']),
   },
   created() {
     this.getHerois()
@@ -42,34 +39,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/gerais.scss";
 .heroi-container{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
-  @media screen and (max-width: 700px) {
+  @include responsivo(t){
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @include responsivo(m) {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 .heroi-card{
   border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   .heroi-img{
-    width: 100%;
     height: 300px;
+    @include responsivo(m) {
+      height: 200px;
+    }
     img{
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       height: 100%;
       object-fit: cover;
-    @media screen and(max-width:700px) {
-      height: 200px;
-    }
-    }
-    @media screen and(max-width:700px) {
-      height: 200px;
+      @include responsivo(m) {
+        width: 100%;
+      }
     }
   }
   .heroi-name{
@@ -78,10 +75,12 @@ export default {
     justify-content: center;
     height: 60px;
     text-align: center;
-    background: #ED1D24;
-    color: #fff;
+    background: $cor-principal;
+    color: $cor-fonte;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
+    font-size: 1.1rem;
+    padding: 5px;
   }
 
 }

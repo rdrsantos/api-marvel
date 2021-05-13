@@ -9,12 +9,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "../styles/gerais.scss";
+
 .loader{
   width: 100px;
   height: 100px;
   margin: 0 auto;
-  border: 10px solid #ED1D24;
+  border: 10px solid $cor-principal;
   border-top-color: transparent;
   border-right-color: transparent;
   border-radius: 50%;

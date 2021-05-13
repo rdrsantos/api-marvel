@@ -1,13 +1,13 @@
 <template>
-  <div class="heroi-eventos">
+  <div class="heroi-eventos" v-if="eventos.length">
     <div class="eventos" v-if="eventos">
       <h2 class="eventos-titulo">Eventos Relevantes</h2>
         <div v-for="evento in eventos" :key="evento.id" class="evento">
           <div class="evento-img">
-          <img :src="evento.thumbnail.path.replace('http', 'https') +'.'+ evento.thumbnail.extension" :alt="evento.title">
+            <img :src="evento.thumbnail.path.replace('http', 'https') +'.'+ evento.thumbnail.extension" :alt="evento.title">
+          </div>
+          <h3 class="evento-titulo">{{evento.title}}</h3>   
         </div>
-        <h3 class="evento-titulo">{{evento.title}}</h3>   
-      </div>
     </div>
     <loader v-else />
   </div>
@@ -29,7 +29,6 @@ export default {
       fetch(`https://gateway.marvel.com/v1/public/characters/${this.heroiId}/events?${chave}&limit=8`)
       .then(response => response.json())
       .then(response => {
-        console.log(response.data)
         this.eventos = response.data.results
       })
     }
@@ -41,6 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/gerais.scss";
 .heroi-eventos{
   grid-column: 1/-1;
   margin-bottom: 50px;
@@ -51,19 +51,22 @@ export default {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(4, 1fr);
-  @media screen and (max-width:700px) {
-    grid-template-columns: 1fr 1fr;
+  @include responsivo(t) {
+    grid-template-columns: repeat(3, 1fr); 
+  }
+  @include responsivo(m) {
+    grid-template-columns: 1fr 1fr; 
   }
   .eventos-titulo{
     grid-column: 1/-1;
-    background: #ED1D24;
-    color: #fff;
+    background: $cor-principal;
+    color: $cor-fonte;
     padding: 10px 0;
   }
 }
 
 .evento-img{
-  width: 240px;
+  width: 100%;
   height: 240px;
   img{
     width: 100%;
@@ -74,7 +77,7 @@ export default {
 }
 
 .evento-titulo{
-  color: #ED1D24;
+  color: $cor-principal;
   padding-top: 10px;
 }
 </style>

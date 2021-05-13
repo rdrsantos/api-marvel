@@ -1,10 +1,10 @@
 <template>
-  <div class="heroi-quadrinhos">
+  <div class="heroi-quadrinhos" v-if="quadrinhos.length">
     <div class="quadrinhos" v-if="quadrinhos">
       <h2 class="quadrinhos-titulo">HQ'S Relevantes</h2>
-        <div v-for="quadrinho in quadrinhos" :key="quadrinho.id" class="quadrinho">
-          <div class="quadrinho-img">
-          <img :src="quadrinho.thumbnail.path.replace('http', 'https') +'.'+ quadrinho.thumbnail.extension" :alt="quadrinho.title">
+      <div v-for="quadrinho in quadrinhos" :key="quadrinho.id" class="quadrinho">
+        <div class="quadrinho-img">
+            <img :src="quadrinho.thumbnail.path.replace('http', 'https') +'.'+ quadrinho.thumbnail.extension" :alt="quadrinho.title">
         </div>
         <h3 class="quadrinho-titulo">{{quadrinho.title}}</h3>   
       </div>
@@ -40,6 +40,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/gerais.scss";
+
 .heroi-quadrinhos{
   grid-column: 1/-1;
   margin-bottom: 50px;
@@ -50,30 +52,33 @@ export default {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(4, 1fr);
-  @media screen and (max-width:700px) {
-    grid-template-columns: 1fr 1fr;
+  @include responsivo(t) {
+    grid-template-columns: repeat(3, 1fr); 
+  }
+  @include responsivo(m) {
+    grid-template-columns: 1fr 1fr; 
   }
   .quadrinhos-titulo{
     grid-column: 1/-1;
-    background: #ED1D24;
-    color: #fff;
+    background: $cor-principal;
+    color: $cor-fonte;
     padding: 10px 0;
   }
 }
 
 .quadrinho-img{
+  width: 100%;
   height: 340px;
   img{
     width: 100%;
     height: 100%;
     object-fit: cover;
-   object-position: top;
   }
 
 }
 
 .quadrinho-titulo{
-  color: #ED1D24;
+  color: $cor-principal;
   padding-top: 10px;
 }
 </style>

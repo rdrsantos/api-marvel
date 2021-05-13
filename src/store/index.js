@@ -3,7 +3,8 @@ import {apiUrl} from  '@/api.js'
 export default createStore({
   state: {
     herois: false,
-    //DADOS PAPA PAGINAÇÃO
+
+    //Dado nescessario para fazer a paginacao
     heroisTotal: 0
   },
   mutations: {
@@ -15,9 +16,9 @@ export default createStore({
     }
   },
   actions: {
+    // fazer o fetch para pegar os herois e salvar no localStorage, se nao tiver nenhum dado salvo
     getHerois(context){
-      const heroiLocal = JSON.parse(localStorage.getItem('herois'))
-      if(heroiLocal.length === 12){
+      if(JSON.parse(localStorage.getItem('herois')) && JSON.parse(localStorage.getItem('herois')).length === 12){
         const heroisArray = JSON.parse(localStorage.getItem('herois'))
         const heroisTotal= JSON.parse(localStorage.getItem('heroisTotal'))
         context.commit("GET_HEROIS", heroisArray)
@@ -30,7 +31,6 @@ export default createStore({
           context.commit("GET_HEROIS", response.data.results)
           context.commit("GET_HEROIS_TOTAL", response.data.total)
           context.dispatch("salvarLocalStorage")
-          console.log(context.state.heroisTotal)
         })
       }
     },
@@ -40,6 +40,7 @@ export default createStore({
       localStorage.setItem("herois", heroisJson)
       localStorage.setItem("heroisTotal", totalHerois)
     },
+    // atualizar o array com os dados de herois toda vez que navega nos botoes da paginacao, e salva no localStorage 
     atualizarLocalStorage(context) {
       localStorage.removeItem("herois")
       const heroisPagina = JSON.stringify(context.state.herois)

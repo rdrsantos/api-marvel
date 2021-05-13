@@ -29,7 +29,6 @@ export default {
       heroi: 0,
       heroiId: 0,
       bgImage: "",
-      quadrinhos: false
     }
   },
   methods: {
@@ -50,11 +49,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../styles/gerais.scss";
+
 .heroi{
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 20px;
-  @media screen and(max-width: 700px) {
+  @include responsivo(m) {
     display: block;
   }
 }
@@ -81,20 +82,8 @@ export default {
 .heroi-descricao{
   font-size: 1.2rem;
   line-height: 1.5rem;
-}
-
-.heroi-infos__titulo{
-  font-size: 2.3rem;
-  margin-top: 20px;
-  &::after{
-    content: '';
-    display: block;
-    width: 100px;
-    height: 5px;
-    margin: 10px 0 20px 0;
-    background: #ED1D24;
+  @include responsivo(m) {
+    margin-bottom: 40px;
   }
 }
-
-
 </style>

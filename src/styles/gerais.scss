@@ -36,8 +36,3 @@ img{
     }
   }
 }
-
-// funcao para converter px para rem
-@function rem($size) {
-  @return $size / 16px * 1rem;
-}

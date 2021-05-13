@@ -1,12 +1,12 @@
 <template>
-  <div class="paginacao" v-if="paginasTotal > 1">
-    <p class="pagina-atual">Pagina {{this.$route.query.page}}</p>
+  <div class="paginacao" v-if="paginasTotal > 1">     
+    <p class="pagina-atual">Pagina {{paginaAtual}}</p>
     <ul>
-      <router-link class="controles" @click="fetchPagina(0)" :to="{query: {page: 1}}">Primeira</router-link>
       <li v-for="pagina in paginas" :key="pagina">
         <router-link @click="fetchPagina((pagina-1) * 12)" :to="{name: 'Home', query: {page: pagina}}">{{pagina}}</router-link>
       </li>
-      <router-link class="controles" @click="fetchPagina((paginasTotal-1)*12)" :to="{query: {page: paginasTotal}}">Ultima</router-link>
+      <router-link class="controles" @click="fetchPagina(0)" :to="{query: {page: 1}}">Primeira</router-link> --
+      <router-link class="controles" @click="fetchPagina((paginasTotal-1)*12)" :to="{query: {page: paginasTotal}}">Última</router-link>
     </ul>
   </div>
 </template>
@@ -35,6 +35,9 @@ export default {
     paginasTotal() {
       const total = this.heroisTotal / 12
       return (total !== Infinity) ? Math.ceil(total) : 0
+    },
+    paginaAtual() {
+      return this.$route.query.page
     }
   },
   methods: {
@@ -56,16 +59,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import "../styles/gerais.scss";
 
 .pagina-atual{
-  color: #ED1D24;
+  color: $cor-principal;
   font-weight: bold;
 }
 
 .paginacao{
   grid-column: 1 / -1;
-
 }
 
 li{
@@ -82,18 +85,19 @@ li a {
   background: #fff;
   box-shadow: 2px 2px 5px #0005;
   &:hover{
-    background: #ED1D24;
+    background: $cor-principal;
     color: #fff;
   }
 }
 .controles{
+  display: inline-block;
   padding: 10px;
   border-radius: 2px;
-  margin: 5px;
+  margin: 10px 5px;
   border: none;
   cursor: pointer;
-  background: #ED1D24;
-  color: #fff;
+  background: $cor-principal;
+  color: $cor-fonte;
   box-shadow: 2px 2px 5px #0005;
 }
 </style>

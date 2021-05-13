@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-      <h1 @click="getQuery"  class="header-logo">MARVEL HEROIS</h1>
+      <h1 @click="getQuery"  class="header-logo">MARVEL HÉROIS</h1>
   </header>
 </template>
 
@@ -13,6 +13,7 @@ export default {
     getQuery(){
       let query = (localStorage.getItem("query")) ? JSON.parse(localStorage.getItem("query")) : 1
       this.$router.push(`/?page=${query.page}`)
+      this.getHerois()
     }
   }
 }
@@ -28,7 +29,7 @@ export default {
   margin-bottom: 50px;
   text-align: center;
   h1{
-    color: #fff;
+    color: $cor-fonte;
     font-size: 2rem;
     font-weight: bold;
     cursor: pointer;

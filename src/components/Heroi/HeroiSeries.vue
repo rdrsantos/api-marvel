@@ -1,5 +1,5 @@
 <template>
-  <div class="heroi-series">
+  <div class="heroi-series" v-if="series.length">
     <div class="series" v-if="series">
       <h2 class="series-titulo">Séries Relevantes</h2>
         <div v-for="serie in series" :key="serie.id" class="serie">
@@ -29,7 +29,6 @@ export default {
       fetch(`https://gateway.marvel.com/v1/public/characters/${this.heroiId}/series?${chave}&limit=8`)
       .then(response => response.json())
       .then(response => {
-        console.log(response.data)
         this.series = response.data.results
       })
     }
@@ -41,6 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../styles/gerais.scss";
 .heroi-series{
   grid-column: 1/-1;
   margin-bottom: 50px;
@@ -51,19 +51,22 @@ export default {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(4, 1fr);
-  @media screen and (max-width:700px) {
-    grid-template-columns: 1fr 1fr;
+  @include responsivo(t) {
+    grid-template-columns: repeat(3, 1fr); 
+  }
+  @include responsivo(m) {
+    grid-template-columns: 1fr 1fr; 
   }
   .series-titulo{
     grid-column: 1/-1;
-    background: #ED1D24;
-    color: #fff;
+    background: $cor-principal;
+    color: $cor-fonte;
     padding: 10px 0;
   }
 }
 
 .serie-img{
-  width: 240px;
+  width: 100%;
   height: 240px;
   img{
     width: 100%;
@@ -73,7 +76,7 @@ export default {
 }
 
 .serie-titulo{
-  color: #ED1D24;
+  color: $cor-principal;
   padding-top: 10px;
 }
 </style>
