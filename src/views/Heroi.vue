@@ -39,7 +39,6 @@ export default {
         this.heroi = response.data.results[0]
         this.bgImage = `url('${response.data.results[0].thumbnail.path.replace('http', 'https')}.${response.data.results[0].thumbnail.extension}')`
         this.heroiId = response.data.results[0].id
-        console.log(this.bgImage)
       })
     }
   },
