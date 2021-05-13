@@ -1,24 +1,31 @@
 # marvel-vue
 
-## Project setup
+Projeto criado com vue.js
+
+Usando a api da marvel https://developer.marvel.com/ para obter os dados nescessários para contruir a aplicação
+
+## Dependências nescessárias
+
+### vue
 ```
-npm install
+npm install --save vue
+```
+### vue-router
+```
+npm install --save vue-router
 ```
 
-### Compiles and hot-reloads for development
+### vuex
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+npm install --save vuex
 ```
 
-### Lints and fixes files
+### md5
 ```
-npm run lint
+npm install --save md5
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### core-js
+```
+npm install --save core-js
+```
