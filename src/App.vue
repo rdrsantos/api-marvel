@@ -20,12 +20,8 @@ export default {
   },
   methods: {
     getDadosLocalStorage() {
-      if(localStorage.getItem("query")){
-        const query = JSON.parse(localStorage.getItem("query"))
-        this.$router.push(`/?page=${query.page}`)
-      } else {
-        this.$router.push(`/?page=1`)
-      }
+      let query = (localStorage.getItem("query")) ? JSON.parse(localStorage.getItem("query")) : 1
+      this.$router.push(`/?page=${query}`)
     }
   },
   created() {
