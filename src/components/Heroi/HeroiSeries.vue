@@ -1,5 +1,5 @@
 <template>
-  <div class="heroi-series" v-if="series.length">
+  <div class="heroi-series">
     <div class="series" v-if="series">
       <h2 class="series-titulo">Séries Relevantes</h2>
         <div v-for="serie in series" :key="serie.id" class="serie">

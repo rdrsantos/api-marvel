@@ -60,6 +60,7 @@ export default {
   }
 }
 .heroi-img{
+  width: 100%;
   height: 400px;
   background-position: center;
   background-size: cover;

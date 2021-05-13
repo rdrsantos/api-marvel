@@ -18,7 +18,7 @@ export default createStore({
   actions: {
     // fazer o fetch para pegar os herois e salvar no localStorage, se nao tiver nenhum dado salvo
     getHerois(context){
-      if(JSON.parse(localStorage.getItem('herois')) && JSON.parse(localStorage.getItem('herois')).length === 12){
+      if(localStorage.getItem('herois')){
         const heroisArray = JSON.parse(localStorage.getItem('herois'))
         const heroisTotal= JSON.parse(localStorage.getItem('heroisTotal'))
         context.commit("GET_HEROIS", heroisArray)

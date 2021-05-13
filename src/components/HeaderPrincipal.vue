@@ -5,15 +5,12 @@
 </template>
 
 <script>
-import {mapActions} from "vuex"
 export default {
   name: "HeaderPrincipal",
   methods: {
-    ...mapActions(['getHerois']),
     getQuery(){
       let query = (localStorage.getItem("query")) ? JSON.parse(localStorage.getItem("query")) : 1
       this.$router.push(`/?page=${query.page}`)
-      this.getHerois()
     }
   }
 }

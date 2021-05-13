@@ -1,5 +1,5 @@
 <template>
-  <div class="heroi-eventos" v-if="eventos.length">
+  <div class="heroi-eventos">
     <div class="eventos" v-if="eventos">
       <h2 class="eventos-titulo">Eventos Relevantes</h2>
         <div v-for="evento in eventos" :key="evento.id" class="evento">
@@ -29,7 +29,7 @@ export default {
       fetch(`https://gateway.marvel.com/v1/public/characters/${this.heroiId}/events?${chave}&limit=8`)
       .then(response => response.json())
       .then(response => {
-        this.eventos = response.data.results
+          this.eventos = response.data.results
       })
     }
   },

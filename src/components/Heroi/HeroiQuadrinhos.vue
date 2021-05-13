@@ -1,5 +1,5 @@
 <template>
-  <div class="heroi-quadrinhos" v-if="quadrinhos.length">
+  <div class="heroi-quadrinhos">
     <div class="quadrinhos" v-if="quadrinhos">
       <h2 class="quadrinhos-titulo">HQ'S Relevantes</h2>
       <div v-for="quadrinho in quadrinhos" :key="quadrinho.id" class="quadrinho">
