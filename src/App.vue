@@ -19,13 +19,19 @@ export default {
     FooterPrincipal
   },
   methods: {
-    getDadosLocalStorage() {
-      let query = (localStorage.getItem("query")) ? JSON.parse(localStorage.getItem("query")) : 1
-      this.$router.push(`/?page=${query}`)
+    getQueryLocalStorage() {
+      if(JSON.parse(localStorage.getItem("query"))){
+        const query = JSON.parse(localStorage.getItem("query"));
+        this.$router.push(`/?page=${query.page}`)
+      } else {
+        localStorage.setItem("query", JSON.stringify({page: 1}))
+        const query = JSON.parse(localStorage.getItem("query"))
+        this.$router.push(`/?page=${query.page}`)
+      }
     }
   },
   created() {
-    this.getDadosLocalStorage()
+    this.getQueryLocalStorage()
   }
 }
 </script>
@@ -53,5 +59,4 @@ export default {
     margin: 0 10px;
   }
 }
-
 </style>
