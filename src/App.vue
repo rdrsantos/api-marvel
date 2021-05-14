@@ -20,16 +20,8 @@ export default {
   },
   methods: {
     getQueryLocalStorage() {
-      if(JSON.parse(localStorage.getItem("query"))){
-        const query = JSON.parse(localStorage.getItem("query"));
-        //Se for para a pagina home manda para a pagina de herois que esta salva no locaStorage
-        if(location.href === (location.origin+"/")){
-          this.$router.push(`/?page=${query.page}`)
-        }
-      } else {
+      if(!JSON.parse(localStorage.getItem("query"))){
         localStorage.setItem("query", JSON.stringify({page: 1}))
-        const query = JSON.parse(localStorage.getItem("query"))
-        this.$router.push(`/?page=${query.page}`)
       }
     }
   },

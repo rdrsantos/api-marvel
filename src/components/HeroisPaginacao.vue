@@ -1,11 +1,11 @@
 <template>
   <div class="paginacao" v-if="paginasTotal > 1">     
     <p class="pagina-atual">Pagina {{paginaAtual}}</p>
-    <ul>
+    <ul ref="pagina">
       <li v-for="pagina in paginas" :key="pagina">
-        <router-link @click="fetchPagina((pagina-1) * 12)" :to="{name: 'Home', query: {page: pagina}}">{{pagina}}</router-link>
+        <router-link @click="fetchPagina((pagina-1) * 12)"  :to="{name: 'Home', query: {page: pagina}}">{{pagina}}</router-link>
       </li>
-      <router-link class="controles" @click="fetchPagina(0)" :to="{query: {page: 1}}">Primeira</router-link> --
+      <router-link class="controles" @click="fetchPagina(0)" :to="{query: {page: 1}}" >Primeira</router-link> --
       <router-link class="controles" @click="fetchPagina((paginasTotal-1)*12)" :to="{query: {page: paginasTotal}}">Última</router-link>
     </ul>
   </div>
@@ -18,7 +18,7 @@ export default {
   computed: {
     ...mapState(['heroisTotal']),
     paginas(){
-      const paginaAtual = Number(this.$route.query.page)
+      const paginaAtual = this.paginaAtual
       const range = 9
       const total = this.paginasTotal
       const pagesArray = []
@@ -37,14 +37,13 @@ export default {
       return (total !== Infinity) ? Math.ceil(total) : 0
     },
     paginaAtual() {
-      return this.$route.query.page
+      return (JSON.parse(localStorage.getItem("query"))) ? JSON.parse(localStorage.getItem("query")).page : 1
     }
   },
   methods: {
     ...mapActions(['atualizarLocalStorage']),
     fetchPagina(pagina) {
       this.$store.state.herois = false
-
       fetch(`${apiUrl}&offset=${pagina}`)
       .then(response => response.json())
       .then(r => {
