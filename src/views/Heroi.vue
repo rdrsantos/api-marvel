@@ -1,7 +1,7 @@
 <template>
 <section>
   <transition mode="out-in">
-    <div v-if="heroi" class="heroi">
+    <div v-if="heroi" class="heroi" key="heroi">
       <div class="heroi-img" :style="{backgroundImage: bgImage}">
       </div>
         <div class="heroi-sobre">
@@ -13,7 +13,7 @@
       <heroi-eventos :heroiId="heroiId" />
       <heroi-series :heroiId="heroiId" />
     </div>
-    <loader v-else />
+    <loader v-else key="loader"/>
   </transition>
 </section>
 </template>
