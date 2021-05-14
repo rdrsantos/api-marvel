@@ -1,5 +1,7 @@
 <template>
-  <div class="heroi-container" v-if="herois">
+<section>
+<transition mode="out-in">
+  <div class="heroi-container" v-if="herois" key="heroi-container">
     <div 
       v-for="heroi in herois"
       :key="heroi.id" 
@@ -14,7 +16,9 @@
     </div>
     <herois-paginacao />
   </div>
-  <loader v-else/>
+  <loader v-else key="loader"/>
+</transition>
+</section>
 </template>
 
 <script>

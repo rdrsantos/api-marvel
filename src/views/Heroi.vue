@@ -1,18 +1,20 @@
 <template>
 <section>
-  <div v-if="heroi" class="heroi">
-    <div class="heroi-img" :style="{backgroundImage: bgImage}">
+  <transition mode="out-in">
+    <div v-if="heroi" class="heroi">
+      <div class="heroi-img" :style="{backgroundImage: bgImage}">
+      </div>
+        <div class="heroi-sobre">
+          <h2 class="heroi-nome">{{heroi.name}}</h2>
+          <p v-if="heroi.description" class="heroi-descricao">{{heroi.description}}</p>
+          <p v-else class="heroi-descricao">Descricão não encontrada</p>
+      </div>
+      <heroi-quadrinhos :heroiId="heroiId"/>
+      <heroi-eventos :heroiId="heroiId" />
+      <heroi-series :heroiId="heroiId" />
     </div>
-      <div class="heroi-sobre">
-        <h2 class="heroi-nome">{{heroi.name}}</h2>
-        <p v-if="heroi.description" class="heroi-descricao">{{heroi.description}}</p>
-        <p v-else class="heroi-descricao">Descricão não encontrada</p>
-    </div>
-    <heroi-quadrinhos :heroiId="heroiId"/>
-    <heroi-eventos :heroiId="heroiId" />
-    <heroi-series :heroiId="heroiId" />
-  </div>
-  <loader v-else />
+    <loader v-else />
+  </transition>
 </section>
 </template>
 

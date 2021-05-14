@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <footer>
     <p><strong>MARVEL HÉROIS por <a href="https://rdrdev.netlify.app">Rodrigo Silva</a> - 2021.</strong></p>
-  </div>
+  </footer>
 </template>
 
 <script>
@@ -12,10 +12,12 @@ export default {
 
 <style lang="scss" scoped>
 @import "../styles/gerais.scss";
-  div{
+  footer{
     width: 100%;
     background: $cor-principal;
     padding: 10px 0;
+    position: relative;
+    top: 40px;
   }
   p{
     color: $cor-fonte;

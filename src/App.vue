@@ -2,7 +2,11 @@
 <div id="app">
   <header-principal/>
   <main class="container">
-    <router-view/>
+    <router-view v-slot="{ Component }">
+      <transition mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </main>
   <footer-principal />
 </div>
@@ -53,5 +57,19 @@ export default {
     max-width: 100%;
     margin: 0 10px;
   }
+}
+
+//animacões
+.v-enter-from, .v-leave-to{
+  opacity: 0;
+}
+.v-enter-from{
+  transform: translate3d(0, -20px,0);
+}
+.v-leave-to{
+  transform: translate3d(0, 20px,0);
+}
+.v-enter-active, .v-leave-active{
+  transition: all 0.3s;
 }
 </style>
